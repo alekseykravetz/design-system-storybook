@@ -1,34 +1,50 @@
 // For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
-import storybook from "eslint-plugin-storybook";
+import js from '@eslint/js';
+import globals from 'globals';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import prettierRecommended from 'eslint-plugin-prettier/recommended';
+import storybookPlugin from 'eslint-plugin-storybook';
 
-import js from "@eslint/js";
-import globals from "globals";
-import reactHooks from "eslint-plugin-react-hooks";
-import reactRefresh from "eslint-plugin-react-refresh";
-import { defineConfig, globalIgnores } from "eslint/config";
-
-export default defineConfig([
-  globalIgnores(["dist"]),
+export default [
+  // Ignore the dist directory
   {
-    files: ["**/*.{js,jsx}"],
-    extends: [js.configs.recommended],
+    ignores: ['dist/'],
+  },
+
+  // Main configuration for JS/JSX files
+  {
+    files: ['**/*.{js,jsx}'],
     plugins: {
-      "react-hooks": reactHooks,
-      "react-refresh": reactRefresh,
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
     },
     languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
+      // Inherit recommended language options
+      ...js.configs.recommended.languageOptions,
+      globals: {
+        // Add browser globals
+        ...globals.browser,
+      },
       parserOptions: {
-        ecmaVersion: "latest",
+        // Add JSX support
         ecmaFeatures: { jsx: true },
-        sourceType: "module",
       },
     },
     rules: {
+      // Inherit recommended rules
+      ...js.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
-      "no-unused-vars": ["error", { varsIgnorePattern: "^[A-Z_]" }],
-      "react-refresh/only-export-components": "warn",
+
+      // Your custom rules
+      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      'react-refresh/only-export-components': 'warn',
     },
   },
-]);
+
+  // Apply Storybook rules to story files
+  ...storybookPlugin.configs['flat/recommended'],
+
+  // Add Prettier config as the last item.
+  prettierRecommended,
+];

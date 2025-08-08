@@ -1,10 +1,10 @@
-import Stack from "../components/Stack.jsx";
+import Stack from '../components/Stack.jsx';
 
 export default {
-  title: "Components/Stack",
+  title: 'Components/Stack',
   component: Stack,
   argTypes: {
-    numberOfChildren: { type: "number", defaultValue: 4 },
+    numberOfChildren: { type: 'number', defaultValue: 4 },
   },
 };
 
@@ -13,12 +13,12 @@ const Template = ({ numberOfChildren, ...args }) => (
     {[...Array(numberOfChildren).keys()].map((i) => (
       <div
         style={{
-          width: "50px",
-          height: "50px",
-          backgroundColor: "red",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          width: '50px',
+          height: '50px',
+          backgroundColor: 'red',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
         {i + 1}
@@ -29,14 +29,14 @@ const Template = ({ numberOfChildren, ...args }) => (
 
 export const Horizontal = Template.bind({});
 Horizontal.args = {
-  direction: "row",
+  direction: 'row',
   spacing: 2,
   wrap: false,
 };
 
 export const Vertical = Template.bind({});
 Vertical.args = {
-  direction: "column",
+  direction: 'column',
   spacing: 2,
   wrap: false,
 };

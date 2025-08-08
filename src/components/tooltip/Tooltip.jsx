@@ -1,5 +1,5 @@
-import React from "react";
-import "./tooltip.css";
+import React from 'react';
+import './tooltip.css';
 
 export default function Tooltip({ children, tooltip }) {
   // By using a wrapper div, the Tooltip can accept any number of children,
