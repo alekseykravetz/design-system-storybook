@@ -6,6 +6,7 @@ export default function AnimatedButton2({
   children,
   variant = 'primary',
   disabled = false,
+  onClick,
   ...props
 }) {
   const [pos, setPos] = useState({ x: 50, y: 50 });
@@ -20,16 +21,19 @@ export default function AnimatedButton2({
 
   const handleClick = (e) => {
     if (disabled) return;
+
+    // ripple effect
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-
     const newRipple = { x, y, id: Date.now() };
     setRipples((prev) => [...prev, newRipple]);
-
     setTimeout(() => {
       setRipples((prev) => prev.filter((r) => r.id !== newRipple.id));
     }, 600);
+
+    // call original onClick
+    if (onClick) onClick(e);
   };
 
   return (
