@@ -1,0 +1,130 @@
+.animated-btn {
+  /* position: relative; */
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  animation:
+    fade-in 0.4s ease-out,
+    move-top-in 0.4s ease-out;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    opacity 0.3s;
+  /* background: radial-gradient(
+    circle at var(--x, 50%) var(--y, 50%),
+    #f1f4f7,
+    #e3e3e4
+  ); */
+}
+
+.btn-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+}
+
+.btn-icon.left {
+  margin-right: 0.25rem;
+}
+.btn-icon.right {
+  margin-left: 0.25rem;
+}
+
+.btn-text {
+  display: inline-block;
+  line-height: 1;
+}
+
+/* Hover / Active */
+.animated-btn:hover:not(.disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+.animated-btn:active:not(.disabled) {
+  transform: scale(0.95);
+}
+
+/* Disabled */
+.animated-btn.disabled,
+.animated-btn:disabled {
+  background: #adb5bd !important;
+  color: #eee !important;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+  opacity: 0.7;
+}
+
+/* Sizes */
+.animated-btn.sm {
+  padding: 0.4rem 1rem;
+  font-size: 0.85rem;
+}
+.animated-btn.md {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+}
+.animated-btn.lg {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+}
+
+.animated-btn.full-width {
+  width: 100%;
+}
+.animated-btn.rounded {
+  border-radius: 50px;
+}
+
+/* Variants */
+.animated-btn.primary {
+  color: white;
+  background: radial-gradient(
+    circle at var(--x, 50%) var(--y, 50%),
+    var(--primary2),
+    var(--primary)
+  );
+}
+.animated-btn.secondary {
+  color: white;
+  background: radial-gradient(
+    circle at var(--x, 50%) var(--y, 50%),
+    var(--secondary2),
+    var(--secondary)
+  );
+}
+.animated-btn.danger {
+  color: white;
+  background: radial-gradient(
+    circle at var(--x, 50%) var(--y, 50%),
+    var(--danger2),
+    var(--danger)
+  );
+}
+.animated-btn.warning {
+  color: black;
+  background: radial-gradient(
+    circle at var(--x, 50%) var(--y, 50%),
+    var(--warning2),
+    var(--warning)
+  );
+}
+
+/* Hide content smoothly when loading */
+.animated-btn.loading .btn-text,
+.animated-btn.loading .btn-icon {
+  opacity: 0;
+  transform: scale(0.8);
+  transition:
+    opacity 2s,
+    transform 2s;
+  pointer-events: none;
+}

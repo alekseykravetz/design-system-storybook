@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import './AnimatedButton6.css';
+import '../styles.css';
+import './AnimatedButton.css';
+import useRipple from '../clickRippleEffect/useRipple';
+import Ripple from '../clickRippleEffect/Ripple';
+import useMousePosition from '../hooks/useMousePosition';
+import Spinner from '../Spinner/Spinner';
+import Spinner2 from '../Spinner2/Spinner2';
 
-export default function AnimatedButton6({
+export default function AnimatedButton({
   children,
-  variant = 'primary',
+  variant,
   size = 'md',
   fullWidth = false,
   rounded = false,
@@ -16,32 +22,17 @@ export default function AnimatedButton6({
   onClick,
   ...props
 }) {
-  const [pos, setPos] = useState({ x: 50, y: 50 });
-  const [ripples, setRipples] = useState([]);
+  const { pos, detectMousePosition } = useMousePosition();
+  const { ripples, startRipple } = useRipple();
   const [internalLoading, setInternalLoading] = useState(false);
 
   const loading = autoLoading ? internalLoading : loadingProp;
   const isDisabled = disabled || loading;
 
-  const handleMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    setPos({ x, y });
-  };
-
   const handleClick = async (e) => {
     if (isDisabled) return;
 
-    // ripple
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const newRipple = { x, y, id: Date.now() };
-    setRipples((prev) => [...prev, newRipple]);
-    setTimeout(() => {
-      setRipples((prev) => prev.filter((r) => r.id !== newRipple.id));
-    }, 600);
+    startRipple(e);
 
     if (onClick) {
       try {
@@ -69,7 +60,7 @@ export default function AnimatedButton6({
         isDisabled ? 'disabled' : '',
         loading ? 'loading' : '',
       ].join(' ')}
-      onMouseMove={handleMouseMove}
+      onMouseMove={detectMousePosition}
       onClick={handleClick}
       style={{
         '--x': `${pos.x}%`,
@@ -80,7 +71,7 @@ export default function AnimatedButton6({
     >
       <span className="btn-content">
         {loading ? (
-          <span className="spinner" />
+          <Spinner />
         ) : (
           <>
             {iconLeft && <span className="btn-icon left">{iconLeft}</span>}
@@ -90,16 +81,12 @@ export default function AnimatedButton6({
         )}
       </span>
 
-      <span className="ripple-container">
-        {ripples.map((r) => (
-          <span key={r.id} className="ripple" style={{ left: r.x, top: r.y }} />
-        ))}
-      </span>
+      <Ripple ripples={ripples} />
     </button>
   );
 }
 
-AnimatedButton6.propTypes = {
+AnimatedButton.propTypes = {
   children: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   variant: PropTypes.oneOf(['primary', 'secondary', 'danger', 'warning']),

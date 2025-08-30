@@ -1,7 +1,7 @@
-import AnimatedCard from '../components/AnimatedCard/AnimatedCard';
+import AnimatedCard from '../components/animated/AnimatedCard/AnimatedCard';
 
 export default {
-  title: 'Components/AnimatedCard',
+  title: 'Animated/AnimatedCard',
   component: AnimatedCard,
   argTypes: {
     onClick: { action: 'clicked' },

@@ -1,0 +1,17 @@
+.animated-scroll-in-item {
+  animation: scrolling linear;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
+}
+@keyframes scrolling {
+  from {
+    opacity: 0;
+    /* scale: 0.5; */
+    transform: translateX(-150px);
+  }
+  to {
+    opacity: 1;
+    /* scale: 1; */
+    transform: translateX(0);
+  }
+}

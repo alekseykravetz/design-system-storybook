@@ -7,9 +7,9 @@
   border: none;
   border-radius: 12px;
   background: radial-gradient(
-    circle at var(--x, 30%) var(--y, 30%),
+    circle at var(--x, 50%) var(--y, 50%),
     rgba(187, 212, 245, 0.3),
-    rgb(250, 250, 250)
+    rgb(240, 240, 240)
   );
   transition:
     transform 0.2s ease,
@@ -26,22 +26,4 @@
 
 .animated-card:active {
   transform: scale(1);
-}
-
-@keyframes fade-in {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes move-top-in {
-  0% {
-    transform: translateY(-30px);
-  }
-  100% {
-    transform: translateX(0);
-  }
 }
